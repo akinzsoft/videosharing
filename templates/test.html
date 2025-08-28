@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>User Search AJAX (POST)</title>
+</head>
+<body>
+    <h2>Search User</h2>
+    <input type="text" id="nameInput" placeholder="Enter name to search" />
+    <button onclick="searchUser()">Search</button>
+    
+    <br><br>
+    
+    <label>First Match:</label>
+    <input type="text" id="resultField" readonly placeholder="User name will appear here" />
+
+    <script>
+        function searchUser() {
+            const name = document.getElementById('nameInput').value.trim();
+            const resultInput = document.getElementById('resultField');
+
+            if (!name) {
+                resultInput.value = 'Please enter a name';
+                return;
+            }
+
+            fetch('http://127.0.0.1:8000/api/users/search_users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name: name }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.length > 0) {
+                    resultInput.value = data[0].name;
+                } else {
+                    resultInput.value = 'No match found';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                resultInput.value = 'Error occurred';
+            });
+        }
+    </script>
+</body>
+</html>
+

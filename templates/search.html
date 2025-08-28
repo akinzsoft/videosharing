@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Video Search</title>
+  <style>
+    /* Reset */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      background-color: #141414;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+    }
+    h1 {
+      padding: 20px 40px 10px;
+      margin: 0;
+      font-weight: 700;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      padding: 0 20px;
+    }
+    /* Grid for video thumbnails */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 15px;
+    }
+    .video-card {
+      position: relative;
+      cursor: pointer;
+      border-radius: 6px;
+      overflow: hidden;
+      background-color: #222;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .video-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px rgba(255,255,255,0.3);
+      z-index: 2;
+    }
+    .video-thumb {
+      display: block;
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      vertical-align: middle;
+      background-color: #333;
+      transition: filter 0.3s ease;
+    }
+    .video-card:hover .video-thumb {
+      filter: brightness(1.1);
+    }
+    .video-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 8px 10px;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .video-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+  </style>
+</head>
+<body>
+
+  <h1>Video Search:</h1>
+  <div class="container">
+  <div class="video-grid">
+    {% if videos %}
+      {% for video in videos %}
+      <a href="http://127.0.0.1:8000/api/watchmv?id=/media/{{video.video_file }}&movietitle={{ video.id }}" rel="noopener noreferrer" class="video-card-link">
+        <div class="video-card">
+          <img src="{{ video.thumbnail_url }}" alt="{{ video.title }}" class="video-thumb" />
+          <div class="video-info">{{ video.title }}</div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>No videos found for "{{ query }}"</p>
+    {% endif %}
+  </div>
+</div>
+      
+       
+      
+      
+       
+      <!-- Add more video cards as needed -->
+    </div>
+  </div>
+
+</body>
+</html>

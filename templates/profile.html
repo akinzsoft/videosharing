@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Profile - TobiPlay</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #000000;
+      margin: 0;
+      padding: 40px 20px;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    #logo {
+      font-weight: 900;
+      font-size: 32px;
+      color: #2ecc40;
+      margin-bottom: 30px;
+      user-select: none;
+      text-align: center;
+      letter-spacing: 1.5px;
+      text-shadow: 0 1px 3px rgba(46, 204, 64, 0.5);
+      text-decoration: none;
+      display: block;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    #logo:hover {
+      color: #28b737;
+      text-shadow: 0 2px 6px rgba(40, 183, 55, 0.6);
+    }
+
+    #profile-form {
+      background: #fff;
+      padding: 35px 40px;
+      width: 100%;
+      max-width: 480px;
+      border-radius: 14px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3), 0 0 0 1px rgba(46, 204, 64, 0.1);
+      transition: box-shadow 0.3s ease;
+    }
+
+    #profile-form:hover {
+      box-shadow: 0 12px 28px rgba(0,0,0,0.4), 0 0 0 1px rgba(46, 204, 64, 0.2);
+    }
+
+    #profile-form div {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #444;
+      letter-spacing: 0.03em;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    select {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 16px;
+      border: 1.5px solid #ccc;
+      border-radius: 8px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    input[type="date"]:focus,
+    select:focus {
+      border-color: #2ecc40;
+      outline: none;
+      box-shadow: 0 0 8px rgba(46, 204, 64, 0.4);
+    }
+
+    .gender-group label {
+      display: inline-block;
+      margin-right: 18px;
+      font-weight: 500;
+      color: #555;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    input[type="radio"] {
+      margin-right: 6px;
+      vertical-align: middle;
+      cursor: pointer;
+    }
+
+    button {
+      background-color: #2ecc40;
+      border: none;
+      padding: 14px 30px;
+      font-size: 17px;
+      color: white;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 700;
+      width: 100%;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 5px 12px rgba(46, 204, 64, 0.6);
+      user-select: none;
+    }
+
+    button:hover {
+      background-color: #28b737;
+      box-shadow: 0 8px 18px rgba(40, 183, 55, 0.7);
+    }
+
+    @media (max-width: 520px) {
+      body {
+        padding: 20px 15px;
+      }
+      
+      #profile-form {
+        padding: 25px 20px;
+      }
+      
+      #logo {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <a href="/api/" id="logo">TobiPlay</a>
+    <form id="profile-form">
+      <div>
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" name="firstName" required />
+      </div>
+      
+      <div>
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" name="lastName" required />
+      </div>
+      
+      <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" readonly required />
+      </div>
+      
+      <div>
+        <label for="phone">Phone</label>
+        <input type="tel" id="phone" name="phone" required />
+      </div>
+      
+      <div>
+        <label for="dateOfBirth">Date of Birth</label>
+        <input type="date" id="dateOfBirth" name="dateOfBirth" required />
+      </div>
+      
+      <div class="gender-group">
+        <label>Gender</label><br />
+        <label><input type="radio" name="gender" value="male" /> Male</label>
+        <label><input type="radio" name="gender" value="female" /> Female</label>
+        <label><input type="radio" name="gender" value="other" /> Other</label>
+        <label><input type="radio" name="gender" value="prefer-not-to-say" /> Prefer not to say</label>
+      </div>
+      
+      <div>
+        <label for="address">Address</label>
+        <input type="text" id="address" name="address" required />
+      </div>
+      
+      <div>
+        <label for="city">City</label>
+        <input type="text" id="city" name="city" required />
+      </div>
+      
+      <div>
+        <label for="state">State</label>
+        <input type="text" id="state" name="state" required />
+      </div>
+      
+      <div>
+        <label for="zipCode">ZIP Code</label>
+        <input type="text" id="zipCode" name="zipCode" required />
+      </div>
+      
+      <div>
+        <label for="country">Country</label>
+        <select id="country" name="country" required>
+          <option value="">Select Country</option>
+          <option value="us">United States</option>
+          <option value="ca">Canada</option>
+          <option value="uk">United Kingdom</option>
+          <option value="au">Australia</option>
+          <option value="de">Germany</option>
+          <option value="fr">France</option>
+          <option value="jp">Japan</option>
+          <option value="in">India</option>
+          <option value="br">Brazil</option>
+          <option value="mx">Mexico</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      
+      <button type="submit">Update Profile</button>
+    </form>
+  </div>
+
+  <script>
+    // Helper function to get CSRF token from cookie
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+          cookie = cookie.trim();
+          if (cookie.startsWith(name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Load profile data
+      fetch('profile_api', {
+        credentials: 'include'
+      })
+      .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.json();
+      })
+      .then(data => {
+        if (data.name) {
+          const parts = data.name.split(' ');
+          document.getElementById('firstName').value = parts[0] || '';
+          document.getElementById('lastName').value = parts.slice(1).join(' ') || '';
+        }
+        document.getElementById('email').value = data.email || '';
+        document.getElementById('phone').value = data.phoneno || '';
+        document.getElementById('dateOfBirth').value = data.dob || '';
+        document.getElementById('address').value = data.address || '';
+        document.getElementById('city').value = data.city || '';
+        document.getElementById('state').value = data.state || '';
+        document.getElementById('zipCode').value = data.zipcode || '';
+        document.getElementById('country').value = data.country || '';
+
+        if (data.gender) {
+          document.querySelectorAll('input[name="gender"]').forEach(radio => {
+            radio.checked = radio.value === data.gender;
+          });
+        }
+      })
+      .catch(error => {
+        console.error('Error loading profile:', error);
+      });
+
+      // Form submit handler
+      document.getElementById('profile-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const updatedData = {
+          name: `${document.getElementById('firstName').value} ${document.getElementById('lastName').value}`,
+          email: document.getElementById('email').value,
+          phoneno: document.getElementById('phone').value,
+          dob: document.getElementById('dateOfBirth').value,
+          gender: document.querySelector('input[name="gender"]:checked')?.value,
+          address: document.getElementById('address').value,
+          city: document.getElementById('city').value,
+          state: document.getElementById('state').value,
+          zipcode: document.getElementById('zipCode').value,
+          country: document.getElementById('country').value
+        };
+
+        const csrftoken = getCookie('csrftoken');
+
+        fetch('profile_api', {
+          method: 'PUT',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
+          },
+          body: JSON.stringify(updatedData)
+        })
+        .then(async response => {
+          if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Server response:', errorText);
+            throw new Error('Update failed');
+          }
+          alert('Profile updated successfully!');
+        })
+        .catch(error => {
+          alert('Error updating profile.');
+          console.error('Update error:', error);
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TobiPlay</title>
+  <style>
+    /* Trending Now Section Styles */
+/* Reset & Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background-color: #141414;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* Header */
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+  padding: 20px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s ease, padding 0.3s ease;
+}
+
+.header.scrolled {
+  background-color: #141414;
+  padding: 15px 60px;
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: bold;
+  color: #91e509ff;
+  letter-spacing: -1px;
+  user-select: none;
+}
+
+.nav {
+  display: flex;
+  gap: 30px;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.nav a:hover,
+.nav a.active {
+  color: #b3b3b3;
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.search-icon,
+.notifications,
+.profile {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* Hero Section */
+.hero {
+  height: 100vh;
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.4),
+      rgba(0, 0, 0, 0.4)
+    ),
+    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23333" width="1200" height="800"/><text x="600" y="400" text-anchor="middle" fill="%23666" font-size="48" font-family="Arial">Featured Content</text></svg>');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  padding: 0 60px;
+}
+
+.hero-content {
+  max-width: 500px;
+}
+
+.small-welcome {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.hero-title {
+  font-size: 64px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.hero-description {
+  font-size: 18px;
+  line-height: 1.4;
+  margin-bottom: 30px;
+  color: #e5e5e5;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.btn {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-play {
+  background-color: white;
+  color: black;
+}
+
+.btn-play:hover {
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+.btn-info {
+  background-color: rgba(109, 109, 110, 0.7);
+  color: white;
+}
+
+.btn-info:hover {
+  background-color: rgba(109, 109, 110, 0.4);
+}
+
+/* Content Sections */
+.content-section {
+  padding: 0 60px;
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #e5e5e5;
+}
+
+/* Scrollable Rows */
+.content-row,
+#trending-now {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #555 transparent;
+  cursor: grab;
+}
+
+.content-row::-webkit-scrollbar,
+#trending-now::-webkit-scrollbar {
+  height: 8px;
+}
+
+.content-row::-webkit-scrollbar-thumb,
+#trending-now::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 4px;
+}
+
+/* Content Items */
+.content-item {
+  min-width: 300px;
+  height: 170px;
+  background: linear-gradient(45deg, #333, #555);
+  border-radius: 8px;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 14px;
+}
+
+.content-item:hover {
+  transform: scale(1.05);
+  z-index: 10;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.content-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.content-item:hover::before {
+  opacity: 1;
+}
+
+/* Trending Items */
+.trending-item {
+  min-width: 200px;
+  height: 280px;
+  background-color: #222;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+}
+
+.trending-item:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 25px rgba(229, 9, 20, 0.7);
+  z-index: 20;
+}
+
+.trending-number {
+  position: absolute;
+  top: -25px;
+  left: 10px;
+  font-size: 100px;
+  font-weight: bold;
+  color: #e50914;
+  text-shadow: 2px 2px 0 #000;
+  z-index: 5;
+  user-select: none;
+  pointer-events: none;
+}
+
+.trending-title {
+  padding: 12px 16px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  font-size: 18px;
+  z-index: 10;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Thumbnail & Play Button */
+.thumbnail-container {
+  position: relative;
+  flex-grow: 1;
+  overflow: hidden;
+  border-radius: 8px 8px 0 0;
+}
+
+.thumbnail-container img,
+.thumbnail-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 32px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 14px 18px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  user-select: none;
+}
+
+.play-button:hover {
+  background: rgba(229, 9, 20, 0.8);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Footer */
+.footer {
+  background-color: #000;
+  padding: 60px;
+  margin-top: 100px;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.footer-links a {
+  color: #737373;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  color: #737373;
+  font-size: 13px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header {
+    padding: 15px 20px;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .hero {
+    padding: 0 20px;
+  }
+
+  .hero-title {
+    font-size: 36px;
+  }
+
+  .content-section {
+    padding: 0 20px;
+  }
+
+  .content-item {
+    min-width: 200px;
+    height: 120px;
+  }
+
+  .trending-item {
+    min-width: 150px;
+    height: 220px;
+  }
+
+  .trending-number {
+    font-size: 70px;
+    top: -15px;
+    left: 8px;
+  }
+
+  .trending-title {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .play-button {
+    font-size: 24px;
+    padding: 10px 14px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  
+  <header class="header" id="header">
+    <a href="{% url 'homepg' %}">
+      <div class="logo">TobiPlay</div>
+    </a>
+    <nav class="nav">
+      <a href="" class="active">Home</a>
+      <a href="#">TV Shows</a>
+      <a href="#/api/users/movies/">Movies</a>
+      <a href="#">New & Popular</a>
+      <a href="#myvideo">My List</a>
+      <a href="#">Browse by Languages</a>
+    </nav>
+    <div class="user-menu">
+        <form action="{% url 'searchvideos' %}" method="GET">
+    <input type="text" name="title" placeholder="Search...">
+    <button type="submit">Search</button>
+</form>
+      <div class="notifications">🔔</div>
+      <div class="profile"><a href="/api/profile">👤</a></div>
+    </div>
+  </header>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      // Load welcome message
+      $.ajax({
+        url: 'http://127.0.0.1:8000/api/welcome',
+        method: 'GET',
+        xhrFields: {
+          withCredentials: true,
+        },
+        success: function (data) {
+          $('#welcome-message').text(data.message);
+        },
+        error: function () {
+          $('#welcome-message').text('You are not logged in.');
+        },
+      });
+
+     function fetchTrending(url, container, indexStart = 0) {
+  $.ajax({
+    url: url,
+    method: 'GET',
+    success: function (data) {
+      const items = data.results || data; // handle paginated or non-paginated response
+      items.forEach((item, i) => {
+        const trendingItem = $(`
+          <div class="content-item trending-item">
+            
+           <div class="trending-title">
+  <a href="http://127.0.0.1:8000/api/watchmv?id=${item.video_file}&movietitle=${encodeURIComponent(item.id)}" rel="noopener noreferrer">
+    ${item.title}
+  </a>
+</div>
+
+<div class="video-container">
+  <a href="${item.id}" rel="noopener noreferrer">
+    <img src="${item.thumbnail}" alt="${item.title}" width="320" height="240" />
+  </a>
+</div>
+
+        `);
+        container.append(trendingItem);
+      });
+
+      if (data.next) {
+        fetchTrending(data.next, container, indexStart + items.length);
+      }
+    },
+    error: function () {
+      container.html('<p>Failed to load trending items.</p>');
+    },
+  });
+}
+
+// Call function
+fetchTrending('http://127.0.0.1:8000/api/trending/', $('#trending-now'));
+
+    });
+  </script>
+
+  
+  <section class="hero">
+    <div class="hero-content">
+      <h1><span id="welcome-message">Loading...</span></h1>
+      <h1 class="hero-title">Stranger Things</h1>
+      <p class="hero-description">
+        When a young boy vanishes, a small town uncovers a mystery involving
+        secret experiments, terrifying supernatural forces and one strange little
+        girl.
+      </p>
+      <div class="hero-buttons">
+        <button class="btn btn-play">▶ Play</button>
+        <button class="btn btn-info">ℹ More Info</button>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="content-section">
+      <h2 class="section-title">Video List</h2>
+      <div class="content-row" id="trending-now">
+        <!-- Trending items will be dynamically loaded here -->
+      </div>
+    </section>
+
+    
+
+    
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="#">Audio and Subtitles</a>
+        <a href="#">Audio Description</a>
+        <a href="#">Help Center</a>
+        <a href="#">Gift Cards</a>
+        <a href="#">Media Center</a>
+        <a href="#">Investor Relations</a>
+        <a href="#">Jobs</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Privacy</a>
+        <a href="#">Legal Notices</a>
+        <a href="#">Corporate Information</a>
+        <a href="#">Contact Us</a>
+        <a href="#">Speed Test</a>
+        <a href="#">Netflix Originals</a>
+        <a href="#">Viewers Help</a>
+        <a href="#">Cookie Preferences</a>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2025 TobiPlay, Inc.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
