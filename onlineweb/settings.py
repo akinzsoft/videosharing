@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-@5n%hq$&-jvrrwc(#$@0wyu-+igd&4hc^b_)*vz_z0m%@8%1qp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -81,10 +81,10 @@ WSGI_APPLICATION = 'onlineweb.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'tobidb',
-        'USER': 'root',
+        'NAME': 'tobiplay-database',
+        'USER': 'ilsrozzglc',
         'PASSWORD': 'password@1',
-        'HOST': 'localhost',       # or your DB server IP/domain
+        'HOST': 'tobiplay-server.mysql.database.azure.com',       # or your DB server IP/domain
         'PORT': '3306',            # default MySQL port
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
