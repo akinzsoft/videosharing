@@ -82,15 +82,19 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'tobiplay-database',
-        'USER': 'ilsrozzglc',
-        'PASSWORD': 'password@1',
-        'HOST': 'tobiplay-server.mysql.database.azure.com',       # or your DB server IP/domain
-        'PORT': '3306',            # default MySQL port
+        'USER': 'ilsrozzglc@tobiplay-server',  # Note the full username with server suffix
+        'PASSWORD': 'your-actual-password',
+        'HOST': 'tobiplay-server.mysql.database.azure.com',
+        'PORT': '3306',
         'OPTIONS': {
+            'ssl': {
+                'ca': '/path/to/BaltimoreCyberTrustRoot.crt.pem',  # SSL cert file path
+            },
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },
     }
 }
+
 
 
 # Password validation
