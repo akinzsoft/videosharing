@@ -336,7 +336,8 @@
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 30000);
 
-        const response = await fetch("http://127.0.0.1:8000/api/v/videos/", {
+        const response = await fetch("https://tobiplay-eubkh3exfyfbbqgr.westeurope-01.azurewebsites.net
+/api/v/videos/", {
           method: "POST",
           body: formData,
           signal: controller.signal
@@ -361,7 +362,8 @@
         if (error.name === 'AbortError') {
           showError('Upload timed out. Please check your connection.');
         } else if (error.message.includes('Failed to fetch')) {
-          showError('Cannot connect to server. Make sure it is running on http://127.0.0.1:8000');
+          showError('Cannot connect to server. Make sure it is running on hhttps://tobiplay-eubkh3exfyfbbqgr.westeurope-01.azurewebsites.net
+');
         } else {
           showError(error.message || 'Upload failed.');
         }

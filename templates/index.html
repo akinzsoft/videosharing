@@ -427,7 +427,8 @@ body {
     $(document).ready(function () {
       // Load welcome message
       $.ajax({
-        url: 'http://127.0.0.1:8000/api/welcome',
+        url: 'https://tobiplay-eubkh3exfyfbbqgr.westeurope-01.azurewebsites.net
+/api/welcome',
         method: 'GET',
         xhrFields: {
           withCredentials: true,
@@ -451,7 +452,8 @@ body {
           <div class="content-item trending-item">
             
            <div class="trending-title">
-  <a href="http://127.0.0.1:8000/api/watchmv?id=${item.video_file}&movietitle=${encodeURIComponent(item.id)}" rel="noopener noreferrer">
+  <a href="https://tobiplay-eubkh3exfyfbbqgr.westeurope-01.azurewebsites.net
+/api/watchmv?id=${item.video_file}&movietitle=${encodeURIComponent(item.id)}" rel="noopener noreferrer">
     ${item.title}
   </a>
 </div>
@@ -477,7 +479,8 @@ body {
 }
 
 // Call function
-fetchTrending('http://127.0.0.1:8000/api/trending/', $('#trending-now'));
+fetchTrending('https://tobiplay-eubkh3exfyfbbqgr.westeurope-01.azurewebsites.net
+/api/trending/', $('#trending-now'));
 
     });
   </script>
