@@ -149,6 +149,9 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "akinwumiayotunde.daniel@gmail.com"
 EMAIL_HOST_PASSWORD = "UkUniadmission25"  # use an App Password, not your real Gmail password
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+CSRF_TRUSTED_ORIGINS = [
+    "https://tobiplay-eubkh3exfyfbbqgr.westeurope-01.azurewebsites.net",
+]
 
 
  
