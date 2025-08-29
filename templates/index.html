@@ -444,7 +444,7 @@ body {
       {% for video in videos %}
       <div class="content-item trending-item">
         <div class="trending-title">
-          <a href="{% url 'watchmv' %}?id=/media/{{ video.video_file }}&movietitle={{ video.id|urlencode }}">
+          <a href="{% url 'watchmv' %}?id={{ video.video_file }}&movietitle={{ video.id|urlencode }}">
             {{ video.title }}
           </a>
         </div>
