@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'tobiplay-database',
         'USER': 'ilsrozzglc@tobiplay-server',  # Note the full username with server suffix
-        'PASSWORD': 'password@1',
+        'PASSWORD': 'SecurePass@123',
         'HOST': 'tobiplay-server.mysql.database.azure.com',
         'PORT': '3306',
         'OPTIONS': {
