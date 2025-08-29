@@ -108,6 +108,7 @@ def profile_api(request):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+@csrf_exempt
 @api_view(['GET'])
 def myvideo(request):
     usr = request.user
@@ -140,7 +141,7 @@ class VideoViewSet(viewsets.ModelViewSet):
         response['Access-Control-Allow-Methods'] = 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
         response['Access-Control-Allow-Headers'] = 'Content-Type, Authorization'
         return response
-
+@csrf_exempt
 @api_view(['GET'])
 def trending_videos(request):
     # Example: Get top 4 videos ordered by id descending (latest first)
@@ -149,7 +150,7 @@ def trending_videos(request):
     return Response(serializer.data)
 
 
-
+@csrf_exempt
 @api_view(['POST'])
 def addusercomment(request):
     username = request.user.first_name # get from POST data
@@ -176,7 +177,7 @@ def addusercomment(request):
     else:
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
+@csrf_exempt
 @api_view(['GET'])
 def get_comments(request, movieid):
     comments = tblcomment.objects.filter(movieid=movieid)

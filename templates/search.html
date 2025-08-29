@@ -87,8 +87,7 @@
   <div class="video-grid">
     {% if videos %}
       {% for video in videos %}
-      <a href="https://tobiplay-eubkh3exfyfbbqgr.westeurope-01.azurewebsites.net
-/api/watchmv?id=/media/{{video.video_file }}&movietitle={{ video.id }}" rel="noopener noreferrer" class="video-card-link">
+      <a href="http://127.0.0.1:8000/api/watchmv?id=/media/{{video.video_file }}&movietitle={{ video.id }}" rel="noopener noreferrer" class="video-card-link">
         <div class="video-card">
           <img src="{{ video.thumbnail_url }}" alt="{{ video.title }}" class="video-thumb" />
           <div class="video-info">{{ video.title }}</div>
