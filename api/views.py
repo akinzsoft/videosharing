@@ -40,7 +40,19 @@ def regcreator(request):
     return render(request, 'register.html')
 
 def homepg(request):
-    return render(request, 'index.html')
+    context = {
+        'welcome_message': "Hi",  # Or however you generate it
+        'trending_videos': [
+            {
+                'title': 'Sample Title',
+                'thumbnail': '/media/path/to/thumb.jpg',
+                'video_file': 1,
+                'id': 'video-slug-or-id'
+            },
+            ...
+        ]
+    }
+    return render(request, 'index.html', context)
 
 @login_required
 def welcome(request):

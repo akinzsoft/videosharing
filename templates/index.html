@@ -395,7 +395,7 @@ body {
   }
 }
 
-  </style>
+   </style>
 </head>
 <body>
   
@@ -412,83 +412,18 @@ body {
       <a href="#">Browse by Languages</a>
     </nav>
     <div class="user-menu">
-        <form action="{% url 'searchvideos' %}" method="GET">
-    <input type="text" name="title" placeholder="Search...">
-    <button type="submit">Search</button>
-</form>
+      <form action="{% url 'searchvideos' %}" method="GET">
+        <input type="text" name="title" placeholder="Search...">
+        <button type="submit">Search</button>
+      </form>
       <div class="notifications">🔔</div>
       <div class="profile"><a href="/api/profile">👤</a></div>
     </div>
   </header>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-  <script>
-    $(document).ready(function () {
-      // Load welcome message
-      $.ajax({
-        url: 'https://tobiplay-eubkh3exfyfbbqgr.westeurope-01.azurewebsites.net
-/api/welcome',
-        method: 'GET',
-        xhrFields: {
-          withCredentials: true,
-        },
-        success: function (data) {
-          $('#welcome-message').text(data.message);
-        },
-        error: function () {
-          $('#welcome-message').text('You are not logged in.');
-        },
-      });
-
-     function fetchTrending(url, container, indexStart = 0) {
-  $.ajax({
-    url: url,
-    method: 'GET',
-    success: function (data) {
-      const items = data.results || data; // handle paginated or non-paginated response
-      items.forEach((item, i) => {
-        const trendingItem = $(`
-          <div class="content-item trending-item">
-            
-           <div class="trending-title">
-  <a href="https://tobiplay-eubkh3exfyfbbqgr.westeurope-01.azurewebsites.net
-/api/watchmv?id=${item.video_file}&movietitle=${encodeURIComponent(item.id)}" rel="noopener noreferrer">
-    ${item.title}
-  </a>
-</div>
-
-<div class="video-container">
-  <a href="${item.id}" rel="noopener noreferrer">
-    <img src="${item.thumbnail}" alt="${item.title}" width="320" height="240" />
-  </a>
-</div>
-
-        `);
-        container.append(trendingItem);
-      });
-
-      if (data.next) {
-        fetchTrending(data.next, container, indexStart + items.length);
-      }
-    },
-    error: function () {
-      container.html('<p>Failed to load trending items.</p>');
-    },
-  });
-}
-
-// Call function
-fetchTrending('https://tobiplay-eubkh3exfyfbbqgr.westeurope-01.azurewebsites.net
-/api/trending/', $('#trending-now'));
-
-    });
-  </script>
-
-  
   <section class="hero">
     <div class="hero-content">
-      <h1><span id="welcome-message">Loading...</span></h1>
+      <h1><span id="welcome-message">{{ welcome_message }}</span></h1>
       <h1 class="hero-title">Stranger Things</h1>
       <p class="hero-description">
         When a young boy vanishes, a small town uncovers a mystery involving
@@ -506,13 +441,24 @@ fetchTrending('https://tobiplay-eubkh3exfyfbbqgr.westeurope-01.azurewebsites.net
     <section class="content-section">
       <h2 class="section-title">Video List</h2>
       <div class="content-row" id="trending-now">
-        <!-- Trending items will be dynamically loaded here -->
+        {% for video in trending_videos %}
+        <div class="content-item trending-item">
+          <div class="trending-title">
+            <a href="{% url 'watchmv' %}?id={{ video.video_file }}&movietitle={{ video.id|urlencode }}">
+              {{ video.title }}
+            </a>
+          </div>
+          <div class="video-container">
+            <a href="{{ video.id }}">
+              <img src="{{ video.thumbnail }}" alt="{{ video.title }}" width="320" height="240" />
+            </a>
+          </div>
+        </div>
+        {% empty %}
+        <p>No trending videos available.</p>
+        {% endfor %}
       </div>
     </section>
-
-    
-
-    
   </main>
 
   <footer class="footer">
