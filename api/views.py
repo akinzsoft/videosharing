@@ -210,3 +210,15 @@ def searchvideos(request):
     return render(request, 'search.html', context)
 
 
+@api_view(['GET'])
+def homevideo(request):
+    # Just get the latest 5 videos
+    videos = Video.objects.all().order_by('-id')[:5]
+
+    context = {
+        'videos': videos,
+    }
+
+    return render(request, 'index.html', context)
+
+

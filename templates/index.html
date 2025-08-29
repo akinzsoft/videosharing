@@ -438,28 +438,28 @@ body {
   </section>
 
   <main>
-    <section class="content-section">
-      <h2 class="section-title">Video List</h2>
-      <div class="content-row" id="trending-now">
-        {% for video in trending_videos %}
-        <div class="content-item trending-item">
-          <div class="trending-title">
-            <a href="{% url 'watchmv' %}?id={{ video.video_file }}&movietitle={{ video.id|urlencode }}">
-              {{ video.title }}
-            </a>
-          </div>
-          <div class="video-container">
-            <a href="{{ video.id }}">
-              <img src="{{ video.thumbnail }}" alt="{{ video.title }}" width="320" height="240" />
-            </a>
-          </div>
+  <section class="content-section">
+    <h2 class="section-title">Video List</h2>
+    <div class="content-row" id="trending-now">
+      {% for video in videos %}
+      <div class="content-item trending-item">
+        <div class="trending-title">
+          <a href="{% url 'watchmv' %}?id={{ video.video_file }}&movietitle={{ video.id|urlencode }}">
+            {{ video.title }}
+          </a>
         </div>
-        {% empty %}
-        <p>No trending videos available.</p>
-        {% endfor %}
+        <div class="video-container">
+          <a href="{{ video.id }}">
+            <img src="{{ video.thumbnail_url }}" alt="{{ video.title }}" width="320" height="240" />
+          </a>
+        </div>
       </div>
-    </section>
-  </main>
+      {% empty %}
+      <p>No trending videos available.</p>
+      {% endfor %}
+    </div>
+  </section>
+</main>
 
   <footer class="footer">
     <div class="footer-content">

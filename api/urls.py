@@ -1,5 +1,5 @@
 from django.urls import path,include
-from .views import addcreator,regcreator,homepg,crlogin,login_user,welcome,profile,profile_api,myvideo,addusercomment,get_comments,searchvideos
+from .views import addcreator,regcreator,homepg,crlogin,login_user,welcome,profile,profile_api,myvideo,addusercomment,get_comments,searchvideos,homevideo
 from rest_framework.routers import DefaultRouter
 from .views import VideoViewSet,watchmv,trending_videos
 
@@ -21,6 +21,7 @@ urlpatterns = [
     path('addusercomment/', addusercomment, name='addusercomment'),
     path('get_comments/<str:movieid>/', get_comments, name='get_comments'),
     path('searchvideos', searchvideos, name='searchvideos'),
+    path('homevideo', homevideo, name='homevideo'),
     
     
     
